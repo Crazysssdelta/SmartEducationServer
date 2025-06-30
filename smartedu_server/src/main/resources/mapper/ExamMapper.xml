@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.smartedu.mapper.ExamMapper">
+
+    <!-- 查询所有 -->
+    <select id="getAllExams" resultType="com.smartedu.entity.Exam">
+        SELECT *
+        FROM exams
+    </select>
+
+    <!-- 模糊组合查询 -->
+    <select id="selectAll" parameterType="com.smartedu.entity.Exam" resultType="com.smartedu.entity.Exam">
+        SELECT *
+        FROM exams
+        <where>
+            <if test="id != null">
+                AND id = #{id}
+            </if>
+            <if test="title != null and title != ''">
+                AND title LIKE concat('%', #{title}, '%')
+            </if>
+            <if test="courseId != null">
+                AND courseId = #{courseId}
+            </if>
+            <if test="tag != null and tag != ''">
+                AND tag LIKE concat('%', #{tag}, '%')
+            </if>
+            <if test="questionId != null">
+                AND questionId = #{questionId}
+            </if>
+            <if test="startTime != null">
+                AND startTime >= #{startTime}
+            </if>
+            <if test="endTime != null">
+                AND endTime &lt;= #{endTime}
+            </if>
+
+            <if test="totalscore != null">
+                AND totalscore = #{totalscore}
+            </if>
+        </where>
+        ORDER BY id ASC
+    </select>
+
+
+
+
+    <!-- 按 ID 查询 -->
+    <select id="selectById" parameterType="long" resultType="com.smartedu.entity.Exam">
+        SELECT id, title, "courseId", "questionId", "totalscore", "startTime", "endTime", tag
+        FROM exams
+        WHERE id = #{id}
+    </select>
+
+
+
+    <!-- 插入 -->
+    <insert id="insert" parameterType="com.smartedu.entity.Exam" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO exams (title, "courseId", "questionId", "totalscore", "startTime", "endTime", tag)
+        VALUES (#{title}, #{courseId}, #{questionId}, #{totalscore}, #{startTime}, #{endTime}, #{tag})
+    </insert>
+
+
+    <!-- 更新 -->
+    <update id="update" parameterType="com.smartedu.entity.Exam">
+        UPDATE exams
+        SET title = #{title},
+            "courseId" = #{courseId},
+            "questionId" = #{questionId},
+            "totalscore" = #{totalscore},
+            "startTime" = #{startTime},
+            "endTime" = #{endTime},
+            tag = #{tag}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 删除 -->
+    <delete id="deleteById" parameterType="long">
+        DELETE FROM exams WHERE id = #{id}
+    </delete>
+
+</mapper>
