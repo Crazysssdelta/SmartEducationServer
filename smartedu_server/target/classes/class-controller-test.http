@@ -1,0 +1,174 @@
+### test getallclasses
+
+GET http://localhost:8080/class/getAll
+Accept: application/json
+
+### test selectById
+GET http://localhost:8080/class/selectById/101
+Accept: application/json
+
+### add Student
+POST http://localhost:8080/student/add
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 99,
+  "name": "小三",
+  "email": "san@example.com",
+  "classId": 102
+}
+### select all
+POST http://localhost:8080/student/selectAll
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 0,
+  "name": "三",
+  "email": null,
+  "classId":null
+}
+
+### get all
+GET http://localhost:8080/student/getAll
+Accept: application/json
+
+
+### add task
+POST http://localhost:8080/task/add
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 112,
+  "title": "完成软件工程报告",
+  "content": "撰写项目总结与展示PPT",
+  "classId": 110,
+
+  "dueDate": "2025-07-08",
+  "filename": "313_iOS.docx"
+
+}
+
+### select all
+GET http://localhost:8080/task/selectAll
+Accept: application/json
+Content-Type: application/json
+
+{
+
+}
+
+### get all tasks
+GET http://localhost:8080/task/getAll
+Accept: application/json
+
+### add taskGrade
+POST http://localhost:8080/taskgrade/add
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "studentId": 101,
+  "taskId": 201,
+  "score": 95.0
+}
+
+
+
+#### upload file
+#POST http://localhost:8080/files/upload
+#Content-Type: multipart/form-data; boundary=WebAppBoundary
+#Accept: application/json
+#
+#--WebAppBoundary
+#Content-Disposition: form-data; name="file"; filename="iOS.docx"
+#Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+#
+#< F:/Users/15341/source/myHomeWork/iOS.docx
+#--WebAppBoundary--
+
+
+### Upload File
+POST http://localhost:8080/files/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+Accept: application/json
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="iOS.docx"
+Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document
+
+< F:/Users/15341/source/myHomeWork/iOS.docx
+--WebAppBoundary
+Content-Disposition: form-data; name="fileUrl"
+
+0100123_iOS.docx
+
+--WebAppBoundary--
+
+### update task grade
+PUT http://localhost:8080/taskgrade/update
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "studentId": 1001,
+  "taskId": 2001,
+  "score": 98.0,
+  "gradedate": "2025-07-02"
+}
+
+### delete task grade by ID
+DELETE http://localhost:8080/taskgrade/deleteById/1
+Accept: application/json
+
+
+### add exam grade
+POST http://localhost:8080/examgrade/add
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 1,
+  "studentId": 101,
+  "examId": 201,
+  "score": 95.0
+}
+### add resourze
+POST http://localhost:8080/resourze/add
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": 9,
+  "title": "abc",
+  "description": "abc"
+
+}
+
+### delete file
+DELETE http://localhost:8080/files/deleteByUrl?fileUrl=20250626230100123_iOS.docx
+Accept: application/json
+
+### add question
+POST http://localhost:8080/question/add
+Content-Type: application/json
+
+{
+  "title": "以下哪个不是 Java 的基本数据类型？",
+  "description": "判断以下四个选项哪个不是基本数据类型",
+  "courseId": 1,
+  "answer": "C",
+  "kgPoint": "java",
+  "tag": "简答",
+  "score": 2.0
+}
+
+
+
+
+
+
